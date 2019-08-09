@@ -1,0 +1,124 @@
+body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+		margin: 0;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 12px;
+		line-height: 20px;
+		color: #333333;
+		background-color: #ffffff;
+}	  
+
+.score-high{
+	color:green;
+}
+ 
+.score-mid{
+	background-color:yellow;
+}
+
+.score-low{
+	color:red;
+}
+
+.td-chapter{
+	background-color:gray;
+	width:180px;	
+}
+.td-chapter span{	
+	padding-left:8px;
+	margin-right:80px;
+}
+
+.td-name{
+	width:180px;
+	text-align:center;
+}
+
+
+.td-level{
+	background-color:white;
+	width:180px;
+}
+
+.td-level span{
+	padding-left:30px;
+}
+
+ol{
+	color:#EEE;
+}
+
+.book{
+	padding-top: 5px;
+	padding-bottom: 8px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-left:6px;
+	text-decoration: none;		
+	font-size:12px;	
+}
+
+.li-active{
+	border: 2px solid #3d8be9;
+}
+ 
+.li-active span {
+			position: absolute;
+			bottom: -8px;
+			_bottom: -5px;
+			left: 50%;
+			margin-left: -6px;
+			color: #3d8be9;
+			margin-bottom:-3px;				
+			display: inline-block;
+			font-family: "SimSun";
+			z-index:-100;
+}
+
+.li-unactive{
+	border-right: 1px solid #d5d5d5;
+}
+
+
+.li-unactive span {
+			position: absolute;
+			bottom: -8px;
+			_bottom: -5px;
+			left: 50%;
+			margin-left: -6px;
+			color: #3d8be9;
+			margin-bottom:-6px;				
+			display: none;
+			font-family: "SimSun";			
+			z-index:-100;
+}
+
+.li-active a{
+	color:#08c;	
+	
+}
+
+.li-unactive a{
+	color:#333;
+}
+
+.class-tab {
+	margin: -5px 0 10px 10px;
+	background-color: #fff;
+	border: 1px solid #d5d5d5;
+	height: 28px;
+	border-radius: 5px; 
+}
+.class-tab  li{
+	float:left;
+	list-style: none;
+	position: relative;
+	line-height: 18px;
+	padding: 5px 25px 4px;
+	float: left;
+	text-decoration: none;
+	border-radius: 3px; 
+}
+
+
+

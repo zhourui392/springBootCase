@@ -1,5 +1,5 @@
 server:
-  port: 2224
+  port: 8080
 
 spring:
   application:
@@ -10,7 +10,7 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.100:3306/teleus?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/teleus?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
@@ -32,14 +32,3 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
-
-#logging:
-#  level:
-#    root: error
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka/

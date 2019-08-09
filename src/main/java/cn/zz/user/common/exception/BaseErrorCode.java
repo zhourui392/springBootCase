@@ -1,4 +1,4 @@
-package cn.zz.user.exception;
+package cn.zz.user.common.exception;
 
 
 public interface BaseErrorCode {

@@ -1,5 +1,5 @@
 server:
-  port: 2224
+  port: 80
 
 spring:
   application:
@@ -32,14 +32,3 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
-
-#logging:
-#  level:
-#    root: error
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka/

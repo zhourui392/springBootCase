@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>列表页</title>	<meta name="description" content="">
+	<link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" />
+	<link type="text/css" href="css/bootstrapSwitch.css" rel="stylesheet" />
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrapSwitch.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/ComfirmDialog.js"></script>
+	<script type="text/javascript" src="js/bootstrap-paginator.js"></script>
+	<script type="text/javascript" src="js/hospitalopt.js"></script>
+	<script type="text/javascript" src="js/daterangepicker.js"></script>
+    
+    <style type="text/css">
+    	#page ul li{cursor: pointer;}
+    </style>
+</head>
+<body>
+<!-- 顶部 header -->
+	<header>
+		<h1><a href="#"><img alt="" src="images/logo.png" /></a></h1>
+	</header>
+
+<!-- 主体部分 -->
+	<div class="main">
+		<div class="left_menu">
+			<ul>
+				<li class="active" onclick="location.href='hospitalopt.html'"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;医院管理</li>
+				<li onclick="location.href='serverconfig.html'"><span class="glyphicon glyphicon-cog active"></span>&nbsp;&nbsp;配置</li>
+				<li onclick="location.href='uploadrecord.html'"><span class="glyphicon glyphicon-upload active"></span>&nbsp;&nbsp;上传记录</li>
+				<li onclick="location.href='downloadrecord.html'"><span class="glyphicon glyphicon-download active"></span>&nbsp;&nbsp;下载记录</li>
+			</ul>
+		</div>
+		<div class="content_wrap">
+			<h2>医院列表</h2>
+			<div class="func_wrap">
+				<div class="addbtn"><button type="button" class="btn-success btn btn-add-record fl mr15">添加</button></div>
+				<div class="search_filter">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="请输入要搜索的内容" id="searchHospitalName">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-search"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrap">
+				<table class="table table-bordered table-condensed">
+					<tr>
+						<th width="40%">医院名称</th>
+						<th width="20%">创建时间</th>
+						<th width="20%">修改时间</th>
+						<th width="20%">操作</th>
+					</tr>
+					<tbody class="trValueList">
+					</tbody>
+				</table>
+				<div id="page" class="page_wrap" style="text-align: right; width: 100%;">
+					<!--  
+					<ul class="pagination pagination-sm">
+						<li class="disabled"><a href="#">&lt;</a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&gt;</a></li>
+					</ul>-->
+				</div>
+				<input type="hidden" id="pageIndex" />
+				<input type="hidden" id="pageToal" />
+				<input type="hidden" id="pageEachNum" />
+			</div>
+		</div>
+		
+		<!-- 模态框（Modal） -->
+	<div class="modal fade" id="Goto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<input type="hidden" id="hospitalId" value=""> 
+						<div class="form-group" style="height:50px;">
+							<label for="name">医院名称：</label>
+							<input class="form-control patientdecribe" id="hospitalName">
+						</div>
+						<!-- 新增 Radio 代码 -->
+						<div class="form-group" style="height:20px;">
+							<label for="radio" class="col-sm-3 control-label" style="width: auto;">接收开关：</label>
+							<div class="col-sm-9">
+								<label class="radio-inline">
+									<input type="radio" name="recvRadio" value="1" checked>打开
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="recvRadio" value="0">关闭
+								</label>
+							</div>
+						</div>
+						<div class="form-group" style="height:20px;">
+							<label for="radio" class="col-sm-3 control-label" style="width: auto;">发送开关：</label>
+							<div class="col-sm-9">
+								<label class="radio-inline">
+									<input type="radio" name="sentRadio" value="1" checked>打开
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="sentRadio" value="0">关闭
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary btn-edit-info">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 接收模态框（Modal） -->
+	<div class="modal fade" id="hospitalRecvInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<input type="hidden" id="hospitalRecvId" value=""> 
+						<div class="form-group">
+							<label for="name">接收（-->本医院）：</label>
+							<div class="sentToLocal"></div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary btn-addrelationship-recv-info">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 发送模态框（Modal） -->
+	<div class="modal fade" id="hospitalSentInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="name">发送（本医院-->）：</label>
+							<div class="localSentTo"></div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary btn-addrelationship-sent-info">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 发送模态框（Modal） -->
+	<div class="modal fade" id="keymodalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="name">key：</label>
+							<div class="keyDiv"></div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+	<script type="text/javascript">
+	</script>
+</body>
+</html>

@@ -1,5 +1,9 @@
 package cn.zz.user.controller;
 
+import java.util.UUID;
+
+import cn.zz.user.common.cache.TokenCache;
+import cn.zz.user.common.cache.UserToken;
 import cn.zz.user.entity.User;
 import cn.zz.user.service.UserService;
 import cn.zz.user.common.tool.MD5Util;
@@ -7,29 +11,48 @@ import cn.zz.user.common.util.Root;
 import cn.zz.user.common.util.lang.Times;
 import cn.zz.user.common.util.page.PageQuery;
 import cn.zz.user.common.util.page.PageResult;
+import net.sf.ehcache.CacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * @author zhourui
+ */
 @RestController
 public class UserController extends BaseController{
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	@Autowired
+	@Resource
 	private UserService userService;
 
+	@Resource
+	TokenCache tokenCache;
 
-	@RequestMapping(value = "/user" ,method = RequestMethod.GET)
-	public String login(@RequestParam(value = "username") String username) throws Exception {
-		logger.debug("RequestParam.username is {}.", username);
-		Root root = Root.getRootOKAndSimpleMsg();
-		User user = userService.getUserByUsername(username);
-		root.setData(user);
-		return root.toJsonString();
-	}
+    @RequestMapping(value = "/login" ,method = RequestMethod.POST)
+    public String login(@RequestParam(value = "username") String username,
+        @RequestParam("pwd") String pwd){
+        logger.debug("RequestParam.username[{}],pwd[{}]", username, pwd);
+        Root root = Root.getRootOKAndSimpleMsg();
+        if ("admin".equals(username) && "admin".equals(pwd)){
+            String token = UUID.randomUUID().toString();
+			UserToken userToken = new UserToken();
+			userToken.setToken(token);
+			userToken.setUserId(1);
+			userToken.setUserName(username);
+			userToken.setRole("admin");
+			tokenCache.setCache(token, userToken);
+            root.setData(token);
+            return root.toJsonString();
+        }
+        return Root.getRootFailAndSimpleMsg().toJsonString();
+    }
+
 
 	@RequestMapping(value = "/user/name" ,method = RequestMethod.GET)
 	public String loginNameIsExist(@RequestParam(value = "username") String username) throws Exception {
@@ -42,12 +65,6 @@ public class UserController extends BaseController{
 			root.setData(0);
 		}
 		return root.toJsonString();
-	}
-
-	@RequestMapping(value = "/tus_user/test" ,method = RequestMethod.POST)
-	public void testController(@RequestParam(value = "username") String username,
-							   @RequestParam(value = "password") String password) {
-		logger.debug("test controller");
 	}
 
 	@ResponseBody

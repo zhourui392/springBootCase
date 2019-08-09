@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录页</title>	<meta name="description" content="">
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="css/bootstrapSwitch.css" rel="stylesheet" />
+    <link type="text/css" href="css/common.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrapSwitch.js"></script>
+    <script type="text/javascript" src="js/script.js?version=20190809"></script>
+</head>
+<body>
+<!-- 顶部 header -->
+<header>
+    <h1><a href="#"><img alt="" src="images/logo.png" /></a></h1>
+</header>
+
+<!-- 主体部分 -->
+<div class="main">
+    <div class="login_wrap">
+        <form>
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="pwd">密码</label>
+                <input type="password" class="form-control" name="pwd" id="pwd" placeholder="">
+            </div>
+            <div class="form-group">
+                <label></label>
+                <button type="button" class="btn btn-primary login_btn">登 录</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+    $("button.login_btn").click(function(){
+        var username = $("#username").val();
+        var pwd = $("#pwd").val();
+        var json = {
+            username : username,
+            pwd : pwd
+        };
+        commonAjax.post("login", json, function (data) {
+            if (data.status == 1){
+                alert("登录成功，token["+data.data+"]");
+                //写入localstorage
+                writeToken(data.data);
+                //跳转
+            }else {
+                alert("账号或密码错误。");
+            }
+        });
+    });
+</script>
+</html>

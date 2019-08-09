@@ -1,4 +1,4 @@
-package cn.zz.user.common;
+package cn.zz.user.common.aspect;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -22,7 +22,7 @@ public class WebLogAspect {
 
     ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.teleus.controller.*.*(..))")
+    @Pointcut("execution(public * cn.zz.user.controller.*.*(..))")
     public void webLog(){}
 
     @Before("webLog()")

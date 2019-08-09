@@ -1,8 +1,5 @@
 package cn.zz.user.common.exception;
 
-
-import cn.zz.user.exception.BaseErrorCode;
-
 public abstract class TeleusException {
 
     private String exceptMessage;

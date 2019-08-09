@@ -1,4 +1,4 @@
-package cn.zz.user.config;
+package cn.zz.user.common.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.util.StringUtils;
