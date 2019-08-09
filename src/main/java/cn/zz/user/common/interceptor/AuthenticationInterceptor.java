@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import cn.zz.user.common.cache.TokenCache;
 import cn.zz.user.common.cache.UserToken;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -25,10 +24,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
         throws Exception {
-
         String token = httpServletRequest.getHeader("token");
-        String url = httpServletRequest.getRequestURI();
-
 
         if (token == null){
             return false;

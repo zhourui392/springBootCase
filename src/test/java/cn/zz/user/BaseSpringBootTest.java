@@ -1,6 +1,7 @@
 package cn.zz.user;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,5 +23,10 @@ public class BaseSpringBootTest {
     public void before() {
         host = "http://localhost:" + port;
         restTemplate = new TestRestTemplate();
+    }
+
+    @Test
+    public void test(){
+
     }
 }

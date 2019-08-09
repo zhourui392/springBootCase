@@ -161,7 +161,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<outputDirectory>${project.basedir}/../target</outputDirectory>
+					<outputDirectory>src/main/docker</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

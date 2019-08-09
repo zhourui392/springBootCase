@@ -1,0 +1,11 @@
+FROM frolvlad/alpine-oraclejdk8:slim
+VOLUME /tmp
+RUN apk add -U tzdata && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    date
+
+ADD spring-tools-0.0.1-SNAPSHOT.jar app.jar
+RUN sh -c 'touch /app.jar'
+ENV JAVA_OPTS="-Xms1000m -Xmx1000m"
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /app.jar  --spring.profiles.active=$SPRING_PROFILES_ACTIVE" ]
