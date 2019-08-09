@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 /**
+ *
  * @author zhourui
  */
 @SpringBootApplication
