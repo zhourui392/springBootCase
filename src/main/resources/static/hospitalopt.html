@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrapSwitch.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/script.js?version=20190810"></script>
     <script type="text/javascript" src="js/ComfirmDialog.js"></script>
 	<script type="text/javascript" src="js/bootstrap-paginator.js"></script>
 	<script type="text/javascript" src="js/hospitalopt.js"></script>
@@ -18,23 +18,17 @@
     
     <style type="text/css">
     	#page ul li{cursor: pointer;}
-    </style>
+		#hospitalLi{ color: #fff; background: url('/images/left_menu_bg.png') left top repeat-x;}
+	</style>
 </head>
 <body>
 <!-- 顶部 header -->
-	<header>
-		<h1><a href="#"><img alt="" src="images/logo.png" /></a></h1>
+	<header id="header">
 	</header>
 
 <!-- 主体部分 -->
 	<div class="main">
-		<div class="left_menu">
-			<ul>
-				<li class="active" onclick="location.href='hospitalopt.html'"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;医院管理</li>
-				<li onclick="location.href='serverconfig.html'"><span class="glyphicon glyphicon-cog active"></span>&nbsp;&nbsp;配置</li>
-				<li onclick="location.href='uploadrecord.html'"><span class="glyphicon glyphicon-upload active"></span>&nbsp;&nbsp;上传记录</li>
-				<li onclick="location.href='downloadrecord.html'"><span class="glyphicon glyphicon-download active"></span>&nbsp;&nbsp;下载记录</li>
-			</ul>
+		<div class="left_menu" id="left_menu">
 		</div>
 		<div class="content_wrap">
 			<h2>医院列表</h2>

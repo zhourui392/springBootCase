@@ -79,7 +79,7 @@ var CommonAjax = function () {
                 successCall(data);
             },
             error: function (xhr,textStatus,errorThrown) {
-                if (xhr.status == 401) {
+                if (xhr.status == 401 || xhr.status == 405) {
                     //无权限，跳转到登录页面
                     location.href="/index.html";
                 } else{

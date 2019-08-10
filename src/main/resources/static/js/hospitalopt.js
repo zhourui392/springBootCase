@@ -32,7 +32,7 @@ $(function(){
           	 recvSwitch:  getRadioVal($("input[name=recvRadio]"))
             };
        	 $.ajax({
-	             url: "hospital",
+	             url: "/hospital",
 	             dataType: "json",
 	             data: json,
 	             type: "POST",
@@ -56,7 +56,7 @@ function initButton(){
 		$(this).click(function(){
 			var hospitalId = $(this).attr("value");
 			$.ajax({
-	             url: "hospital/"+hospitalId,
+	             url: "/hospital/"+hospitalId,
 	             dataType: "json",
 	             type: "GET",
 	             success: function (data) {
@@ -132,7 +132,7 @@ function initButton(){
 			if (confirm("确认删除？")){
 				var hospitalId = $(this).attr("value");
 				$.ajax({
-		             url: "hospital/"+hospitalId,
+		             url: "/hospital/"+hospitalId,
 		             dataType: "json",
 		             type: "DELETE",
 		             success: function (data) {
@@ -168,7 +168,7 @@ function initButton(){
 		$(this).click(function(){
 			var hospitalId = $(this).attr("value");
 			$.ajax({
-	             url: "hospital/relation/list/"+hospitalId,
+	             url: "/hospital/relation/list/"+hospitalId,
 	             dataType: "json",
 	             type: "GET",
 	             success: function (data) {
@@ -213,7 +213,7 @@ function initButton(){
 		 						localhospitalId : hospitalId
 		 				};
 	                	 $.ajax({
-				             url: "hospitalrelationship/recv",
+				             url: "/hospitalrelationship/recv",
 				             dataType: "json",
 				             data: json,
 				             type: "POST",
@@ -248,7 +248,7 @@ $("a.btn-info-recv").each(function(){
 	$(this).click(function(){
 		var hospitalId = $(this).attr("value");
 		$.ajax({
-             url: "hospital/relation/list/"+hospitalId,
+             url: "/hospital/relation/list/"+hospitalId,
              dataType: "json",
              type: "GET",
              success: function (data) {
@@ -350,7 +350,7 @@ function refreshTable(){
 			pageIndex : pageIndex
         };
 	$.ajax({
-         url: "hospital/list",
+         url: "/hospital/list",
          dataType: "json",
          data:json,
          type: "POST",
