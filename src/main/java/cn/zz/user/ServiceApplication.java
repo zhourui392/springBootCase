@@ -18,9 +18,4 @@ public class ServiceApplication {
 		ApplicationContext applicationContext = SpringApplication.run(ServiceApplication.class, args);
 		SpringContextHolder.setApplicationContext(applicationContext);
 	}
-
-	@Bean
-	public TokenCache tokenCache(){
-		return new TokenCache();
-	}
 }
