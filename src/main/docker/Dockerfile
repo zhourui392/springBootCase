@@ -4,7 +4,7 @@ RUN apk add -U tzdata && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     date
 
-VOLUME /opt/apps
+VOLUME /home/apps
 
 ADD spring-tools-0.0.1-SNAPSHOT.jar app.jar
 RUN sh -c 'touch /app.jar'

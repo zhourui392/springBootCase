@@ -4,7 +4,7 @@
     <!-- 文件输出格式 -->
     <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n"/>
     <!-- prod文件路径 -->
-    <property name="PRO_FILE_PATH" value="/opt/apps/logs" />
+    <property name="PRO_FILE_PATH" value="/home/apps/logs" />
     <!-- 开发环境 -->
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -17,17 +17,18 @@
     <!-- 生产环境 -->
     <springProfile name="prod">
         <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${PRO_FILE_PATH}</file>
+            <file>app.log</file>
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <fileNamePattern>${PRO_FILE_PATH}/app.%d{yyyy-MM-dd}.log</fileNamePattern>
                 <MaxHistory>100</MaxHistory>
             </rollingPolicy>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>${PATTERN}</pattern>
-            </layout>
         </appender>
-        <root level="debug">
+        <root level="INFO">
             <appender-ref ref="PROD_FILE" />
         </root>
+        <logger name="cn.zz" level="DEBUG"/>
     </springProfile>
 </configuration>
