@@ -4,7 +4,7 @@
     <!-- 文件输出格式 -->
     <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n"/>
     <!-- prod文件路径 -->
-    <property name="PRO_FILE_PATH" value="/opt/logs" />
+    <property name="PRO_FILE_PATH" value="/opt/apps/logs" />
     <!-- 开发环境 -->
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
