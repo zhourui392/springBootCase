@@ -1,5 +1,7 @@
 package cn.zz.user.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,10 +17,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppInitService implements InitializingBean, DisposableBean, ApplicationContextAware{
 
+    private static final Logger logger = LoggerFactory.getLogger(AppInitService.class);
+
     @Override
     public void afterPropertiesSet() throws Exception {
 
 
+        logger.debug("service init finished.");
     }
 
     @Override
