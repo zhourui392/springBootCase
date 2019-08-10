@@ -81,7 +81,7 @@ var CommonAjax = function () {
             error: function (xhr,textStatus,errorThrown) {
                 if (xhr.status == 401) {
                     //无权限，跳转到登录页面
-                    location.href="index.html";
+                    location.href="/index.html";
                 } else{
                     if (errorCall != null){
                         errorCall(xhr);
