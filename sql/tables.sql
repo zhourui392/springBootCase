@@ -9,6 +9,6 @@ CREATE TABLE t_user(
   password VARCHAR(50) COMMENT '登录密码',
   status TINYINT DEFAULT '0' COMMENT '1:删除,0:未删除',
   createdtime TIMESTAMP DEFAULT current_timestamp COMMENT '',
-  updatedtime TIMESTAMP ON UPDATE current_timestamp COMMENT'' ,
+  updatedtime TIMESTAMP DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
