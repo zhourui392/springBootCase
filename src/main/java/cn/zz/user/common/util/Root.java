@@ -13,7 +13,7 @@ public class Root {
 	
 	public static int STATUS_OK = 1;
 	public static int STATUS_FAIL = 0;
-	
+
 	public Integer getStatus() {
 		return status;
 	}

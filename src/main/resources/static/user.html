@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>列表页</title>	<meta name="description" content="">
+	<link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" />
+	<link type="text/css" href="css/bootstrapSwitch.css" rel="stylesheet" />
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrapSwitch.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/ComfirmDialog.js"></script>
+    
+</head>
+<body>
+<!-- 顶部 header -->
+	<header id="header">
+	</header>
+
+<!-- 主体部分 -->
+	<div class="main">
+		<div class="left_menu" id="left_menu">
+		</div>
+		<div class="content_wrap">
+			<h2>资料</h2>
+			<div class="setting_title">
+				<div class="form-group">
+					<label class="col-sm-3 control-label" style="width:80px;">配置类型：</label>
+					<div class="col-sm-9"> 
+						<select class="form-control" id="catetoryList" style="width: 250px;">
+						</select>
+					</div>
+						
+				</div>
+			</div>
+			<form class="form-horizontal mt50" role="form" style="margin-top: 10px;">
+				<div class="col-sm-5" style="width: 600px;border: gray 1px dotted;padding: 20px 20px 10px 10px;">
+					<div id="configArea">
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn btn-success fr mr15 mt35 submitconfigbtn"><span class="glyphicon glyphicon-ok"></span> 确 定</button>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		$(".trValueList").html("");
+		
+		$(function(){
+			refreshTable();
+		});
+		
+		function refreshTable(){
+			//加载配置类型
+            commonAjax.get("users",{},function (data) {
+                if (data.status == 1){
+                    var categoryHtml = "";
+                    var categoryList = data.data;
+                    for (var index in categoryList){
+                        var category = categoryList[index];
+                        categoryHtml += "<option value='"+category+"'>"+category+"</option>";
+                    }
+                    $("#catetoryList").html(categoryHtml);
+
+                }else{
+                    $("#catetoryList").html("<option>无配置信息</option>");
+                }
+            });
+		}
+	</script>
+</body>
+</html>

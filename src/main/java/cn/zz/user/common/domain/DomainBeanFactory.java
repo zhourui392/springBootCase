@@ -1,5 +1,6 @@
-package cn.zz.user.common;
+package cn.zz.user.common.domain;
 
+import cn.zz.user.common.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

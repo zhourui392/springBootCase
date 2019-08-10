@@ -1,3 +1,9 @@
+// 计算高度
+$(document).ready(function() {
+    $("#header").load("common/header.html");
+    $("#left_menu").load("common/menu.html");
+
+});
 
 // 计算高度
 $(document).ready(function() {
@@ -72,9 +78,14 @@ var CommonAjax = function () {
             success: function (data) {
                 successCall(data);
             },
-            error: function (error) {
-                if (errorCall != null){
-                    errorCall(error);
+            error: function (xhr,textStatus,errorThrown) {
+                if (xhr.status == 401) {
+                    //无权限，跳转到登录页面
+                    location.href="index.html";
+                } else{
+                    if (errorCall != null){
+                        errorCall(xhr);
+                    }
                 }
             }
         });
@@ -83,4 +94,31 @@ var CommonAjax = function () {
 
 var commonAjax = new CommonAjax();
 
+
+
+Date.prototype.format = function(format) {
+    var o = {
+        "M+" : this.getMonth() + 1, // month
+        "d+" : this.getDate(), // day
+        "h+" : this.getHours(), // hour
+        "m+" : this.getMinutes(), // minute
+        "s+" : this.getSeconds(), // second
+        "q+" : Math.floor((this.getMonth() + 3) / 3), // quarter
+        "S" : this.getMilliseconds()
+        // millisecond
+    }
+
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    }
+
+    for ( var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
+}
 
