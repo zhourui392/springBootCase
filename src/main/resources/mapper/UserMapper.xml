@@ -10,12 +10,7 @@
     <select id="getUserByUsernameAndPassword" resultMap="BaseResultMap">
         SELECT *
         FROM t_user u
-        WHERE u.username = #{username} and u.password = #{password}
-    </select>
-
-    <select id="getUserByUserNameAndPwd" resultType="cn.zz.user.entity.User">
-        SELECT * FROM t_user
-        WHERE username = #{username} and password = #{userPwd}
+        WHERE u.username = #{username} and u.password = #{password} and status = 0
     </select>
 
     <select id="getListByConditions" resultType="cn.zz.user.entity.User" >

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import cn.zz.user.common.cache.TokenCache;
 import cn.zz.user.common.cache.UserToken;
+import cn.zz.user.common.domain.DomainBeanFactory;
+import cn.zz.user.domain.UserDomain;
 import cn.zz.user.entity.User;
 import cn.zz.user.service.UserService;
 import cn.zz.user.common.tool.MD5Util;
@@ -39,33 +41,21 @@ public class UserController extends BaseController{
         @RequestParam("pwd") String pwd){
         logger.debug("RequestParam.username[{}],pwd[{}]", username, pwd);
         Root root = Root.getRootOKAndSimpleMsg();
-        if ("admin".equals(username) && "admin".equals(pwd)){
-            String token = UUID.randomUUID().toString();
+		User userByUsername = userService.getUserByUsernameAndPassword(username,pwd);
+
+		if (userByUsername != null){
+			String token = UUID.randomUUID().toString();
 			UserToken userToken = new UserToken();
 			userToken.setToken(token);
-			userToken.setUserId(1);
+			userToken.setUserId(userByUsername.getId());
 			userToken.setUserName(username);
 			userToken.setRole("admin");
 			tokenCache.setCache(token, userToken);
-            root.setData(token);
-            return root.toJsonString();
-        }
+			root.setData(token);
+			return root.toJsonString();
+		}
         return Root.getRootFailAndSimpleMsg().toJsonString();
     }
-
-
-	@RequestMapping(value = "/user/name" ,method = RequestMethod.GET)
-	public String loginNameIsExist(@RequestParam(value = "username") String username) throws Exception {
-		logger.debug("RequestParam.username is {}.", username);
-		Root root = Root.getRootOKAndSimpleMsg();
-		User user = userService.getUserByUsername(username);
-		if (user != null){
-			root.setData(1);
-		}else{
-			root.setData(0);
-		}
-		return root.toJsonString();
-	}
 
 	@ResponseBody
 	@RequestMapping(value="/user/{id}", method= RequestMethod.GET)
@@ -79,23 +69,17 @@ public class UserController extends BaseController{
 	@RequestMapping(value="/user/{id}", method= RequestMethod.DELETE)
 	public String deleteUserById(@PathVariable("id") int id) {
 		boolean resultBoolean = userService.deleteById(id);
-		if (resultBoolean) return Root.getRootOKAndSimpleMsg().toJsonString();
+		if (resultBoolean) {
+			return Root.getRootOKAndSimpleMsg().toJsonString();
+		}
 		return Root.getRootFailAndSimpleMsg().toJsonString();
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/user", method= RequestMethod.POST)
 	public String addUser(@RequestParam(value = "showName") String showName, @RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-		User user = new User();
-		//TODO 验证非空
-		user.setShowName(showName);
-		user.setUsername(username);
-		//password加密
-		user.setPassword(MD5Util.md5(password));
-		user.setStatus(User.STAUS_NORMAL);
-		user.setCreatedtime(Times.now());
-		user.setUpdatedtime(Times.now());
-		boolean resultBoolean = userService.add(user);
+		UserDomain userDomain = DomainBeanFactory.newInstance(UserDomain.class);
+		boolean resultBoolean = userDomain.save(showName, username, password);
 		if (resultBoolean) return Root.getRootOKAndSimpleMsg().toJsonString();
 		return Root.getRootFailAndSimpleMsg().toJsonString();
 	}
@@ -114,23 +98,9 @@ public class UserController extends BaseController{
 		if (password != null){
 			user.setPassword(MD5Util.md5(password));
 		}
-//		if (status != null){
-//			user.setStatus(status);
-//		}
 		user.setUpdatedtime(Times.now());
 		boolean resultBoolean = userService.update(user);
 		if (resultBoolean) return Root.getRootOKAndSimpleMsg().toJsonString();
-		return Root.getRootFailAndSimpleMsg().toJsonString();
-	}
-
-	@RequestMapping(value = "/user/login" ,method = RequestMethod.GET)
-	public String login(@RequestParam(value = "username") String username,
-						@RequestParam(value = "password") String password, HttpServletRequest request) throws Exception {
-		logger.debug("RequestParam.username is {}, password is {}.", username, password);
-		User user = userService.getUserByUsernameAndPassword(username,password);
-		if (user != null){
-			return Root.getRootOKAndSimpleMsg().setData(user).toJsonString();
-		}
 		return Root.getRootFailAndSimpleMsg().toJsonString();
 	}
 

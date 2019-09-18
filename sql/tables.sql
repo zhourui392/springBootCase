@@ -12,3 +12,6 @@ CREATE TABLE t_user(
   updatedtime TIMESTAMP DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into t_user (showName,username,password,status) values ('admin', 'admin', 'admin',0);
+

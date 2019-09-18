@@ -1,5 +1,7 @@
 package cn.zz.user.domain;
 
+import cn.zz.user.common.tool.MD5Util;
+import cn.zz.user.common.util.lang.Times;
 import cn.zz.user.entity.User;
 import cn.zz.user.mapper.UserMapper;
 
@@ -14,10 +16,16 @@ public class UserDomain {
     @Resource
     private UserMapper userMapper;
 
-    public void save(String userName, String password){
+    public boolean save(String showName, String userName, String password){
         User user = new User();
+        user.setShowName(showName);
         user.setUsername(userName);
-        userMapper.insert(user);
+        //password加密
+        user.setPassword(MD5Util.md5(password));
+        user.setStatus(User.STAUS_NORMAL);
+        user.setCreatedtime(Times.now());
+        user.setUpdatedtime(Times.now());
+        return userMapper.insert(user) > 0;
     }
 
     public void deleteUser(Integer userId){
