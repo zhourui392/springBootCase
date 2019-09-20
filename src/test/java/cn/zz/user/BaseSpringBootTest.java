@@ -24,9 +24,4 @@ public class BaseSpringBootTest {
         host = "http://localhost:" + port;
         restTemplate = new TestRestTemplate();
     }
-
-    @Test
-    public void test(){
-
-    }
 }
